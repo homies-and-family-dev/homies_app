@@ -1,46 +1,85 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
+import { SvgXml } from 'react-native-svg';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { HomeIcon, ProfileIcon, HeartFavoriteIcon, ShoppingCartIcon } from '@/assets/icons/icons';
+
+const iconColor = '#FFCCEB';
+const iconSize = 27;
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveBackgroundColor: '#FFCCEB',
+        tabBarInactiveBackgroundColor: 'transparent',
+        tabBarStyle: {
+          height: 70 + insets.bottom,
+          backgroundColor: 'white',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderTopWidth: 0,
+          paddingBottom: insets.bottom,
+          ...Platform.select({
+            ios: {},
+            default: {},
+          }),
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: 'regular',
+          color: '#848484',
+          textAlign: 'center',
+          paddingTop: 5, // Ajusta el padding para centrar verticalmente
+        },
+        tabBarActiveTintColor: '#ffffff',
+        tabBarInactiveTintColor: '#FFCCEB',
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ focused }) => (
+            <SvgXml xml={HomeIcon} width={iconSize} height={iconSize} fill={focused ? '#ffffff' : iconColor} style={{ alignSelf: 'center', marginBottom: -5 }} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="favorites"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Favoritos',
+          tabBarIcon: ({ focused }) => (
+            <SvgXml xml={HeartFavoriteIcon} width={iconSize} height={iconSize} fill={focused ? '#ffffff' : iconColor} style={{ alignSelf: 'center', marginBottom: -5 }} />
+          ),
         }}
       />
-      
+      <Tabs.Screen
+        name="cart"
+        options={{
+          title: 'Carrito',
+          tabBarIcon: ({ focused }) => (
+            <SvgXml xml={ShoppingCartIcon} width={iconSize} height={iconSize} fill={focused ? '#ffffff' : iconColor} style={{ alignSelf: 'center', marginBottom: -5 }} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Perfil',
+          tabBarIcon: ({ focused }) => (
+            <SvgXml xml={ProfileIcon} width={iconSize} height={iconSize} fill={focused ? '#ffffff' : iconColor} style={{ alignSelf: 'center', marginBottom: -5 }} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

@@ -1,74 +1,132 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { useState, useEffect } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import Navbar from "@/components/ui/navbar/Navbar";
+import CategoriesCarousel from "@/components/ui/categories/CategoriesCarousel";
+import SedeModal from "@/components/screens/SedeModal";
+import ProductModal from "@/components/screens/ProductModal";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { useCategories } from "@/hooks/api/useCategories";
+import useSedeStore from "@/store/sedeStore";
+import ProductCard from "@/components/ui/ProductCard";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+// Define the Product interface
+interface Product {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  image: string;
+  categoryId: string;
+  quantity?: number;
+}
 
 export default function HomeScreen() {
+  const [isSedeModalVisible, setSedeModalVisible] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isProductModalVisible, setProductModalVisible] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  // Estado global desde Zustand (sede y precios)
+  const selectedSede = useSedeStore((state) => state.selectedSede);
+  const fetchPrices = useSedeStore((state) => state.fetchPrices);
+  const fetchProducts = useSedeStore((state) => state.fetchProducts);
+  const loadSelectedSede = useSedeStore((state) => state.loadSelectedSede);
+  const products = useSedeStore((state) => state.products);
+
+  // Hooks personalizados para obtener categorías
+  const { categories, loading: categoriesLoading } = useCategories();
+
+  useEffect(() => {
+    loadSelectedSede();
+  }, []);
+
+  useEffect(() => {
+    if (selectedSede) {
+      fetchPrices(selectedSede.name);
+    }
+  }, [selectedSede]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  // Filtrar productos por categoría seleccionada
+  const filteredProducts = selectedCategory
+    ? products.filter((product) => product.categoryId === selectedCategory)
+    : products;
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <ScrollView style={styles.container}>
+      <Navbar setSedeModalVisible={setSedeModalVisible} />
+
+      <ThemedView style={styles.container}>
+        {/* Categorías */}
+        <Text style={styles.TitelCategories}>Categorías</Text>
+        {categoriesLoading ? (
+          <ThemedText>Cargando categorías...</ThemedText>
+        ) : (
+          <CategoriesCarousel 
+            categoriesData={categories} 
+            onSelectCategory={(item) => setSelectedCategory(item.id)} 
+          />
+        )}
+
+        {/* Productos */}
+        <View style={styles.productsContainer}>
+          {filteredProducts.map((product) => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onPress={() => {
+                setSelectedProduct(product);
+                setProductModalVisible(true);
+              }} 
+            />
+          ))}
+        </View>
+      </ThemedView>
+
+      {/* Modal de Sedes */}
+      <SedeModal
+        visible={isSedeModalVisible}
+        onClose={() => setSedeModalVisible(false)}
+      />
+
+      {/* Modal de Producto */}
+      {selectedProduct && (
+        <ProductModal
+          visible={isProductModalVisible}
+          onClose={() => setProductModalVisible(false)}
+          product={{ 
+            ...selectedProduct, 
+            description: selectedProduct.description || "Sin descripción disponible" 
+          }}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      )}
+    </ScrollView>
   );
 }
 
+// Estilos
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    paddingTop: 15,
+    backgroundColor: "#FFF7FC",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  TitelCategories: {
+    fontSize: 22,
+    marginBottom: 10,
+    fontWeight: "bold",
+    color: "#FFA4DB",
+    textAlign: "center",
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  productsContainer: {
+    marginVertical: 20,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
   },
 });
+

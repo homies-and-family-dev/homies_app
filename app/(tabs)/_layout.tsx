@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { HapticTab } from '@/components/HapticTab';
+import { HapticTab } from '@/components/default/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { HomeIcon, ProfileIcon, HeartFavoriteIcon, ShoppingCartIcon } from '@/assets/icons/icons';
 

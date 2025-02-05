@@ -1,14 +1,13 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Navbar from "@/components/ui/navbar/Navbar";
 import CategoriesCarousel from "@/components/ui/categories/CategoriesCarousel";
 import SedeModal from "@/components/screens/SedeModal";
 import ProductModal from "@/components/screens/ProductModal";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import { useCategories } from "@/hooks/api/useCategories";
 import useSedeStore from "@/store/sedeStore";
 import ProductCard from "@/components/ui/ProductCard";
+import Hero from "@/components/ui/hero/Hero";
 
 // Define the Product interface
 interface Product {
@@ -60,11 +59,14 @@ export default function HomeScreen() {
     <ScrollView style={styles.container}>
       <Navbar setSedeModalVisible={setSedeModalVisible} />
 
-      <ThemedView style={styles.container}>
+      <View style={styles.container}>
+        {/* Hero */}
+        <Hero />
+        
         {/* Categorías */}
         <Text style={styles.TitelCategories}>Categorías</Text>
         {categoriesLoading ? (
-          <ThemedText>Cargando categorías...</ThemedText>
+          <Text>Cargando categorías...</Text>
         ) : (
           <CategoriesCarousel 
             categoriesData={categories} 
@@ -85,7 +87,7 @@ export default function HomeScreen() {
             />
           ))}
         </View>
-      </ThemedView>
+      </View>
 
       {/* Modal de Sedes */}
       <SedeModal
@@ -121,6 +123,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FFA4DB",
     textAlign: "center",
+    marginTop: 10,
   },
   productsContainer: {
     marginVertical: 20,

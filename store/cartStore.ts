@@ -1,12 +1,20 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
 interface CartState {
-  cartProducts: any[];
+  cartProducts: Product[];
   priceTotal: number;
   fetchCartProducts: () => Promise<void>;
-  calculateTotalPrice: (products: any[]) => void;
-  addProductToCart: (product: any) => Promise<void>;
+  calculateTotalPrice: (products: Product[]) => void;
+  addProductToCart: (product: Product) => Promise<void>;
   updateProductQuantity: (index: number, newQuantity: number) => Promise<void>;
   deleteProduct: (index: number) => Promise<void>;
   deleteAllProducts: () => Promise<void>;

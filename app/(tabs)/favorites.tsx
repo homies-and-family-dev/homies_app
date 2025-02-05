@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { SvgXml } from "react-native-svg";
 import useFavoritesStore from "../../store/favoritesStore";
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF7FC",
-    paddingTop: 50,
+    paddingTop: Platform.OS === "ios" ? 60 : 35,
   },
   titleContainer: {
     padding: 20,

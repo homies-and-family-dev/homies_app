@@ -280,8 +280,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 30,
     width: "50%",
-    elevation: 3,
-    shadowOpacity: 0.5,
+    elevation: 2,
+    shadowOpacity: 0.2,
     shadowOffset: {
       width: 0,
       height: 2,

@@ -71,7 +71,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ visible, onClose, product }
 
   const handlePress = async () => {
     try {
-      await addProductToCart({ ...product, quantity });
+      await addProductToCart({ ...product, quantity }, quantity);
       onClose();
     } catch (error) {
       console.error("Error al añadir el producto al carrito:", error);

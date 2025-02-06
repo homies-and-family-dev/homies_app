@@ -14,7 +14,7 @@ interface CartState {
   priceTotal: number;
   fetchCartProducts: () => Promise<void>;
   calculateTotalPrice: (products: Product[]) => void;
-  addProductToCart: (product: Product) => Promise<void>;
+  addProductToCart: (product: Product, quantity: number) => Promise<void>;
   updateProductQuantity: (index: number, newQuantity: number) => Promise<void>;
   deleteProduct: (index: number) => Promise<void>;
   deleteAllProducts: () => Promise<void>;
@@ -42,16 +42,16 @@ const useCartStore = create<CartState>((set, get) => ({
     set({ priceTotal: total });
   },
 
-  addProductToCart: async (product) => {
+  addProductToCart: async (product: Product, quantity: number) => {
     const existingProductIndex = get().cartProducts.findIndex((p) => p.id === product.id);
     let updatedProducts = [...get().cartProducts];
-
+  
     if (existingProductIndex !== -1) {
-      updatedProducts[existingProductIndex].quantity += 1;
+      updatedProducts[existingProductIndex].quantity += quantity;
     } else {
-      updatedProducts.push({ ...product, quantity: 1 });
+      updatedProducts.push({ ...product, quantity });
     }
-
+  
     set({ cartProducts: updatedProducts });
     get().calculateTotalPrice(updatedProducts);
     await AsyncStorage.setItem("products", JSON.stringify(updatedProducts));

@@ -25,7 +25,7 @@ const EmailScreen = () => {
 
   const handleContinuePress = async () => {
     try {
-      const response = await fetch("http://api.homiesandfamily.com/api/user-email/check", {
+      const response = await fetch("https://api.homiesandfamily.com/api/user-email/check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

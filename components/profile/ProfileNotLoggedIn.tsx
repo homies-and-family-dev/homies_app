@@ -1,12 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
+import { Link } from 'expo-router';
 import { logoutIcon, registerIcon } from "../../assets/icons/icons";
 
 const ProfileScreen = () => {
-  const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -17,13 +15,12 @@ const ProfileScreen = () => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {}}
-        >
-          <Text style={styles.buttonText}>Inicia Sesión</Text>
-          <SvgXml xml={logoutIcon} width={20} height={24} fill={"#FFFFFF"} />
-        </TouchableOpacity>
+        <Link href="/(stack)/login/EmailScreen" asChild>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Inicia Sesión</Text>
+            <SvgXml xml={logoutIcon} width={20} height={24} fill={"#FFFFFF"} />
+          </TouchableOpacity>
+        </Link>
         <TouchableOpacity
           style={[styles.button, styles.buttonWhite]}
           onPress={() => {}}

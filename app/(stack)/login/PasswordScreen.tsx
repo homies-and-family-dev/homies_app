@@ -8,21 +8,31 @@ import {
   Platform,
   Modal,
 } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, RouteProp } from "@react-navigation/native";
 import useStore from "../../../store/authStore";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const PasswordScreen = ({ navigation }) => {
-  const route = useRoute();
+type RootStackParamList = {
+  PasswordScreen: { email: string };
+};
+
+type PasswordScreenRouteProp = RouteProp<RootStackParamList, 'PasswordScreen'>;
+
+interface PasswordScreenProps {
+  navigation: any;
+}
+
+const PasswordScreen: React.FC<PasswordScreenProps> = ({ navigation }) => {
+  const route = useRoute<PasswordScreenRouteProp>();
   const { email } = route.params;
-  const [password, setPassword] = useState("");
-  const [isValidPassword, setIsValidPassword] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [password, setPassword] = useState<string>("");
+  const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
+  const [errors, setErrors] = useState<{ password?: string }>({});
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
   const login = useStore((state) => state.login);
 
-  const handlePasswordChange = (text) => {
+  const handlePasswordChange = (text: string) => {
     setPassword(text);
     setIsValidPassword(text.length >= 8);
   };
@@ -35,7 +45,7 @@ const PasswordScreen = ({ navigation }) => {
 
     try {
       const response = await fetch(
-        "http://api.homiesandfamily.com/api/auth/login",
+        "https://api.homiesandfamily.com/api/auth/login",
         {
           method: "POST",
           headers: {

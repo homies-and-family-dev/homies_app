@@ -27,7 +27,7 @@ const useAuthStore = create<AuthState>((set) => ({
     if (!userToken) return;
 
     try {
-      const response = await fetch("https://api.homiesandfamily.com/api/auth/verify-token", {
+      const response = await fetch("https://api.homiesburger.com/api/auth/verify-token", {
         headers: {
           Authorization: `Bearer ${userToken}`,
           "Content-Type": "application/json",

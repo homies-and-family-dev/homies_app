@@ -11,6 +11,7 @@ import {
 import { useRoute, RouteProp } from "@react-navigation/native";
 import useStore from "../../../store/authStore";
 import { MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 type RootStackParamList = {
   PasswordScreen: { email: string };
@@ -45,7 +46,7 @@ const PasswordScreen: React.FC<PasswordScreenProps> = ({ navigation }) => {
 
     try {
       const response = await fetch(
-        "https://api.homiesandfamily.com/api/auth/login",
+        "https://api.homiesburger.com/api/auth/login",
         {
           method: "POST",
           headers: {
@@ -60,7 +61,7 @@ const PasswordScreen: React.FC<PasswordScreenProps> = ({ navigation }) => {
       if (response.ok) {
         console.log("Login successful:", data);
         await login(data.token);
-        navigation.navigate("TabNavigator", { screen: "Inicio", params: { showSuccessAnimation: true } });
+        router.push("/(tabs)"); 
       } else {
         console.log("Login failed:", data);
         setModalMessage("Contraseña incorrecta");
@@ -186,7 +187,8 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#ccc",
     borderRadius: 10,
-    padding: 15,
+    paddingVertical: Platform.OS === "ios" ? 15 : 5,
+    paddingHorizontal: 15,
     width: "100%",
     backgroundColor: "#FFF",
     ...Platform.select({
@@ -196,8 +198,8 @@ const styles = StyleSheet.create({
           width: 0,
           height: 2,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
       },
       android: {
         elevation: 3,

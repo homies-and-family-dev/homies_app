@@ -29,7 +29,7 @@ const useFetchSedes = () => {
   useEffect(() => {
     const fetchSedes = async () => {
       try {
-        const response = await fetch("https://api.homiesandfamily.com/api/location");
+        const response = await fetch("https://api.homiesburger.com/api/location");
         if (!response.ok) throw new Error("Error al obtener las sedes");
         const data = await response.json();
         setSedes(data);

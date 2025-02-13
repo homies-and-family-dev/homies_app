@@ -8,7 +8,7 @@ export function useProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://api.homiesandfamily.com/api/product");
+        const response = await fetch("https://api.homiesburger.com/api/product");
         const data = await response.json();
 
         // Agregar cantidad inicial a cada producto

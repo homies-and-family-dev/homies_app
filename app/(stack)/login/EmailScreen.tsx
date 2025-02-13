@@ -25,7 +25,7 @@ const EmailScreen = () => {
 
   const handleContinuePress = async () => {
     try {
-      const response = await fetch("https://api.homiesandfamily.com/api/user-email/check", {
+      const response = await fetch("https://api.homiesburger.com/api/user-email/check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,10 @@ const EmailScreen = () => {
       const result = await response.json();
 
       if (result.exists) {
-        router.push("/(stack)/login/PasswordScreen");
+        router.push({
+          pathname: "/(stack)/login/PasswordScreen",
+          params: { email },
+        });
       } else {
         setIsModalVisible(true);
       }
@@ -169,7 +172,8 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#ccc",
     borderRadius: 10,
-    padding: 15,
+    paddingVertical: Platform.OS === "ios" ? 15 : 5,
+    paddingHorizontal: 15,
     width: "100%",
     backgroundColor: "#FFF",
     ...Platform.select({

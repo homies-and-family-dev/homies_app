@@ -30,7 +30,7 @@ const useSedeStore = create<SedeState>((set, get) => ({
 
   fetchPrices: async (sedeId) => {
     try {
-      const response = await fetch("https://api.homiesandfamily.com/api/location-price");
+      const response = await fetch("https://api.homiesburger.com/api/location-price");
       const data = await response.json();
       const filteredPrices = data.filter((price: { locationId: string; productId: string; price: number }) => price.locationId === sedeId);
       const prices = filteredPrices.reduce((acc: Record<string, number>, price: { locationId: string; productId: string; price: number }) => {
@@ -53,7 +53,7 @@ const useSedeStore = create<SedeState>((set, get) => ({
 
   fetchProducts: async () => {
     try {
-      const response = await fetch("https://api.homiesandfamily.com/api/product");
+      const response = await fetch("https://api.homiesburger.com/api/product");
       const data = await response.json();
 
       // Agregar cantidad inicial a cada producto y asignar precios si están disponibles

@@ -8,7 +8,7 @@ export function useCategories() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("https://api.homiesandfamily.com/api/category");
+        const response = await fetch("https://api.homiesburger.com/api/category");
         const data = await response.json();
         setCategories(data);
       } catch (err) {

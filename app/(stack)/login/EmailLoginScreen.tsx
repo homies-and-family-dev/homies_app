@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,15 +8,25 @@ import {
   Platform,
   Modal,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons"; 
+import { Link } from 'expo-router';
 
 const EmailScreen = () => {
   const router = useRouter();
+  const params = useLocalSearchParams();
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (params?.email) {
+      const emailParam = params.email as string;
+      setEmail(emailParam);
+      setIsValidEmail(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailParam));
+    }
+  }, [params]);
 
   const handleEmailChange = (text: string) => {
     setEmail(text);
@@ -37,7 +47,7 @@ const EmailScreen = () => {
 
       if (result.exists) {
         router.push({
-          pathname: "/(stack)/login/PasswordScreen",
+          pathname: "/(stack)/login/PasswordLoginScreen",
           params: { email },
         });
       } else {
@@ -50,10 +60,16 @@ const EmailScreen = () => {
 
   const handleRegisterPress = () => {
     setIsModalVisible(false);
+    router.push({
+      pathname: "/(stack)/register/EmailRegisterScreen",
+      params: { email }
+    });
   };
 
   const handleRetryPress = () => {
     setIsModalVisible(false);
+    setEmail("");
+    setIsValidEmail(false);
   };
 
   return (
@@ -97,9 +113,9 @@ const EmailScreen = () => {
       </View>
       <View style={styles.containerFooter}>
         <Text>¿No tienes cuenta?</Text>
-        <TouchableOpacity >
-           <Text style={styles.registerText}>Regístrate</Text>
-        </TouchableOpacity>
+        <Link href="/(stack)/register/EmailRegisterScreen" asChild>
+          <Text style={styles.registerText}>Regístrate</Text>
+        </Link>
       </View>
       <Modal
         visible={isModalVisible}

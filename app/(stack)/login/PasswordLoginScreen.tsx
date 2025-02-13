@@ -76,6 +76,7 @@ const PasswordScreen: React.FC<PasswordScreenProps> = ({ navigation }) => {
 
   const handleRetryPress = () => {
     setIsModalVisible(false);
+    setPassword("");
   };
 
   return (

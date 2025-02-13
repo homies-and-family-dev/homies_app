@@ -44,11 +44,23 @@ export default function RootLayout() {
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
-          name="(stack)/login/EmailScreen"
+          name="(stack)/login/EmailLoginScreen"
           options={{ headerShown: true }}
         />
         <Stack.Screen
-          name="(stack)/login/PasswordScreen"
+          name="(stack)/login/PasswordLoginScreen"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="(stack)/register/EmailRegisterScreen"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="(stack)/register/RegisterFormScreen"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="(stack)/register/RegisterPasswordScreen"
           options={{ headerShown: true }}
         />
         <Stack.Screen name="+not-found" />

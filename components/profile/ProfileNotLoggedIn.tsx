@@ -15,21 +15,20 @@ const ProfileScreen = () => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Link href="/(stack)/login/EmailScreen" asChild>
-          <TouchableOpacity style={styles.button}>
+        <Link href="/(stack)/login/EmailLoginScreen" style={styles.button}>
+          <View style={styles.buttonContent}>
             <Text style={styles.buttonText}>Inicia Sesión</Text>
             <SvgXml xml={logoutIcon} width={20} height={24} fill={"#FFFFFF"} />
-          </TouchableOpacity>
+          </View>
         </Link>
-        <TouchableOpacity
-          style={[styles.button, styles.buttonWhite]}
-          onPress={() => {}}
-        >
-          <Text style={[styles.buttonText, styles.buttonTextPink]}>
-            Regístrate
-          </Text>
-          <SvgXml xml={registerIcon} width={20} height={24} fill={"#FFA4DB"} />
-        </TouchableOpacity>
+        <Link href="/(stack)/register/EmailRegisterScreen" style={[styles.button, styles.buttonWhite]}>
+          <View style={styles.buttonContent}>
+            <Text style={[styles.buttonText, styles.buttonTextPink]}>
+              Regístrate
+            </Text>
+            <SvgXml xml={registerIcon} width={20} height={24} fill={"#FFA4DB"} />
+          </View>
+        </Link>
       </View>
       <View style={styles.versionContainer}>
         <Text style={styles.version}>Versión 1.0.0</Text>
@@ -49,6 +48,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: "flex-start",
+    gap: 40,
   },
   title: {
     fontSize: 24,
@@ -59,37 +59,45 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#5C5C5C",
     textAlign: "left",
-    marginTop: 15,
   },
   buttonContainer: {
     width: "100%",
     alignItems: "center",
   },
   button: {
+    display: 'flex',
     flexDirection: "row",
-    justifyContent: "center",
-    gap: 30,
-    alignItems: "center",
     backgroundColor: "#FFA4DB",
     paddingVertical: 15,
     borderRadius: 30,
     width: "80%",
-    elevation: 2,
-    shadowOpacity: 0.1,
+    elevation: 3,
+    shadowColor: "#969696",
+    shadowOpacity: 0.2,
     shadowOffset: {
       width: 0,
       height: 1,
     },
     shadowRadius: 5,
     marginVertical: 10,
+    justifyContent: 'center',
+    gap: 10,
   },
   buttonWhite: {
     backgroundColor: "#FFF",
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingHorizontal: 20,
   },
   buttonText: {
     color: "#FFF",
     fontSize: 18,
     fontWeight: "bold",
+    marginRight: 15,
   },
   buttonTextPink: {
     color: "#FFA4DB",

@@ -1,21 +1,27 @@
 {
   "expo": {
     "name": "homies_app",
-    "slug": "homies_app",
-    "version": "1.0.0",
+    "slug": "homiesapp",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.homiesandfamily.homiesapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.homiesandfamily.homiesapp",
+      "permissions": [
+        "INTERNET",
+        "GET_ACCOUNTS"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -32,8 +38,21 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.514932886602-gcfrf3fcb6383ui6tbm2h28plqp52er5",
+          "androidClientId": "514932886602-9l34ig1usu168d5dip17mkn63atjh8cr.apps.googleusercontent.com"
+        }
       ]
     ],
+    "extra": {
+      "eas": {
+        "projectId": "74f2731c-27b0-456f-9ed2-b3cf6e8b4890"
+      }
+    },
+    "owner": "soportehomies",
     "experiments": {
       "typedRoutes": true
     }

@@ -1,50 +1,117 @@
-# Welcome to your Expo app 👋
+# Mi Aplicación Expo 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Esta es una aplicación móvil desarrollada con [Expo](https://expo.dev), creada utilizando [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## 📋 Tabla de Contenidos
 
-1. Install dependencies
+- [Características](#características)
+- [Requisitos Previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Uso](#uso)
+- [Rutas de la Aplicación](#rutas-de-la-aplicación)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Contribución](#contribución)
 
+## ✨ Características
+
+- Sistema de autenticación completo
+- Gestión de perfil de usuario
+- Información personal configurable
+- Opciones de seguridad y login
+- Sección legal (Términos y condiciones, Políticas de privacidad)
+- Navegación mediante pestañas y stack
+- Interfaz de usuario intuitiva
+
+## 🔧 Requisitos Previos
+
+- Node.js (versión 14 o superior)
+- npm o yarn
+- Expo CLI
+- iOS Simulator o Android Emulator (opcional)
+
+## 🚀 Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone [URL-del-repositorio]
+   ```
+
+2. Instala las dependencias:
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Inicia la aplicación:
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## 📁 Estructura del Proyecto
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+├── app/
+│   ├── (stack)/
+│   │   ├── login/
+│   │   └── profile/
+│   ├── (tabs)/
+│   └── _layout.tsx
+├── components/
+│   └── profile/
+├── store/
+│   └── authStore.ts
+└── ...
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 💻 Uso
 
-## Learn more
+La aplicación se puede ejecutar en:
+- Simulador iOS
+- Emulador Android
+- Dispositivo físico usando [Expo Go](https://expo.dev/go)
+- Navegador web (modo desarrollo)
 
-To learn more about developing your project with Expo, look at the following resources:
+Para iniciar en cada plataforma:
+- iOS: Presiona `i` en la terminal
+- Android: Presiona `a` en la terminal
+- Web: Presiona `w` en la terminal
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 🗺️ Rutas de la Aplicación
 
-## Join the community
+- `/login`: Pantalla de inicio de sesión
+- `/profile`: Perfil principal del usuario
+  - `/profile/personalInfo`: Información personal
+  - `/profile/securityLogin`: Configuración de seguridad
+  - `/profile/legal/terms`: Términos y condiciones
+  - `/profile/legal/privacy`: Políticas de privacidad
 
-Join our community of developers creating universal apps.
+## 🛠️ Tecnologías Utilizadas
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo](https://expo.dev)
+- [React Native](https://reactnative.dev)
+- [TypeScript](https://www.typescriptlang.org)
+- [Expo Router](https://docs.expo.dev/router/introduction)
+
+## 🤝 Contribución
+
+1. Haz un Fork del proyecto
+2. Crea una rama para tu función (`git checkout -b feature/AmazingFeature`)
+3. Realiza tus cambios
+4. Commit a tus cambios (`git commit -m 'Add some AmazingFeature'`)
+5. Push a la rama (`git push origin feature/AmazingFeature`)
+6. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia [MIT](LICENSE)
+
+## 🤝 Soporte
+
+Si tienes alguna pregunta o problema:
+- Revisa la [documentación de Expo](https://docs.expo.dev)
+- Únete a la [comunidad de Discord](https://chat.expo.dev)
+- Abre un issue en el repositorio
+
+---
+
+Desarrollado con ❤️ usando Expo

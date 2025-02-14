@@ -20,10 +20,19 @@
       "android": {
         "buildType": "app-bundle",
         "credentialsSource": "remote"
+      },
+      "ios": {
+        "distribution": "store"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "soporte.homiesandfamily@gmail.com",
+        "ascAppId": "6742034545",
+        "appleTeamId": "3RWRXUT6JW"
+      }
+    }
   }
 }

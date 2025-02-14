@@ -15,10 +15,14 @@ const useAuthStore = create<AuthState>((set) => ({
   user: { id: "", email: "", name: "" },
 
   loadToken: async () => {
-    const token = await AsyncStorage.getItem("userToken");
-    if (token) {
-      set({ userToken: token });
-      await useAuthStore.getState().fetchUserData();
+    try {
+      const token = await AsyncStorage.getItem("userToken");
+      if (token) {
+        set({ userToken: token });
+        await useAuthStore.getState().fetchUserData();
+      }
+    } catch (error) {
+      console.error("Error loading token:", error);
     }
   },
 
@@ -38,7 +42,7 @@ const useAuthStore = create<AuthState>((set) => ({
         const data = await response.json();
         set({ user: { id: data.id, email: data.email, name: data.name } });
       } else {
-        console.error("Error al obtener datos del usuario");
+        await useAuthStore.getState().logout();
       }
     } catch (error) {
       console.error("Error de conexión:", error);

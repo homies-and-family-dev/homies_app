@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   containerTitle: {
     marginTop: 20,
     marginBottom: 40,
-    alignItems: "flex-end",
+    alignItems: "flex-start",
   },
   text: {
     fontSize: 18,

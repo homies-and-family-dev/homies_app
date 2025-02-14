@@ -9,6 +9,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import useAuthStore from '../store/authStore';
+import { View } from 'react-native';
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -21,11 +23,15 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
+  const loadToken = useAuthStore((state) => state.loadToken);
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+    // Cargar el token cuando la app inicia
+    loadToken();
+  }, [loaded, loadToken]);
 
   if (!loaded) {
     return null;

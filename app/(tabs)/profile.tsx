@@ -5,12 +5,12 @@ import ProfileNotLoggedIn from "../../components/profile/ProfileNotLoggedIn";
 import { SvgXml } from "react-native-svg";
 import { ConfigurationUserProfileIcon, NotificationIcon, ConfigurationUserIcon, arrowRightIcon } from "../../assets/icons/icons";
 import CardOptionsProfile from "../../components/profile/CardOptionsProfile";
-import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 const ProfileScreen = () => {
   const user = useStore((state) => state.user);
   const logout = useStore((state) => state.logout);
-  const navigation = useNavigation();
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -48,17 +48,17 @@ const ProfileScreen = () => {
               <CardOptionsProfile
                 title="Informacion personal"
                 iconName="ConfigurationUserIcon"
-                onPress={() => {}}
+                route="/profile/personalInfo/PersonalInformation"
               />
               <CardOptionsProfile
                 title="Mis pedidos"
                 iconName="ConfigurationShopIcon"
-                onPress={() => {}}
+                route="/profile/orders/Orders"
               />
               <CardOptionsProfile
                 title="Inicio de sesion y seguridad"
                 iconName="ConfigurationSecurityIcon"
-                onPress={() => {}}
+                route="/profile/securityLogin/SecurityLogin"
               />
             </View>
           </View>
@@ -70,12 +70,12 @@ const ProfileScreen = () => {
               <CardOptionsProfile
                 title="Terminos y condiciones"
                 iconName="ConfigurationLegalIcon"
-                onPress={() => {}}
+                route="/profile/legal/TermsConditions"
               />
               <CardOptionsProfile
                 title="Politica de privacidad"
                 iconName="ConfigurationLegalIcon"
-                onPress={() => {}}
+                route="/profile/legal/PrivacyPolicies"
               />
             </View>
           </View>

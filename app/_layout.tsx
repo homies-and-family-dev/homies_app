@@ -63,6 +63,26 @@ export default function RootLayout() {
           name="(stack)/register/RegisterPasswordScreen"
           options={{ headerShown: true }}
         />
+        <Stack.Screen
+          name="(stack)/profile/personalInfo/PersonalInformation"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="(stack)/profile/orders/Orders"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="(stack)/profile/securityLogin/SecurityLogin"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="(stack)/profile/legal/TermsConditions"
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="(stack)/profile/legal/PrivacyPolicies"
+          options={{ headerShown: true }}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />

@@ -34,7 +34,7 @@ const useUserStore = create<UserState>((set, get) => ({
       console.log('Datos a enviar:', userData);
 
       const response = await fetch(
-        `http://api.homiesburger.com/api/user/${authUser.id}`,
+        `https://api.homiesburger.com/api/user/${authUser.id}`,
         {
           method: "PUT", // Volvemos a PUT si es lo que espera tu API
           headers: {
@@ -55,6 +55,8 @@ const useUserStore = create<UserState>((set, get) => ({
       // Solo actualizamos el estado si la API respondió exitosamente
       if (responseData.success || response.status === 200) {
         console.log('Actualización exitosa en la API');
+        // Actualizamos el estado del usuario con los datos de la respuesta
+        set({ user: { ...get().user, ...userData } });
         return responseData;
       } else {
         throw new Error("La actualización no fue confirmada por el servidor");

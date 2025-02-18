@@ -36,7 +36,7 @@ const FavoriteScreen: React.FC = () => {
 
   const handleAddToCart = async (product: Product) => {
     try {
-      await addProductToCart({ ...product, quantity: 1 });
+      await addProductToCart({ ...product, quantity: product.quantity ?? 1 }, 1);
     } catch (error) {
       console.error("Error adding product to cart:", error);
     }

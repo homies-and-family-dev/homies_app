@@ -6,10 +6,11 @@ import { ConfigurationEditIcon } from "../../assets/icons/icons";
 interface CardOptionsGeneralProps {
   title: string;
   description: string;
-  onPress: () => void;
+  onPress?: () => void;
+  icon?: string; // Add icon prop
 }
 
-const CardOptionsGeneral: React.FC<CardOptionsGeneralProps> = ({ title, description, onPress }) => {
+const CardOptionsGeneral: React.FC<CardOptionsGeneralProps> = ({ title, description, onPress, icon }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={styles.textContainer}>
@@ -18,7 +19,7 @@ const CardOptionsGeneral: React.FC<CardOptionsGeneralProps> = ({ title, descript
       </View>
       <View style={styles.iconContainer}>
         <SvgXml
-          xml={ConfigurationEditIcon}
+          xml={icon || ConfigurationEditIcon} // Use the passed icon or default to ConfigurationEditIcon
           width={20}
           height={20}
           fill={"#FFA4DB"}

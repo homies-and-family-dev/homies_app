@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { SvgXml } from "react-native-svg";
-import { ConfigurationUserProfileIcon, ConfigurationEditIcon } from "../../../../assets/icons/icons";
+import { ConfigurationUserProfileIcon, ConfigurationEditIcon, LockIcon } from "../../../../assets/icons/icons"; // Import LockIcon
 import CardOptionsGeneral from "../../../../components/profile/CardOptionsGeneral";
 import useStore from "../../../../store/authStore"; 
 import { useRouter } from 'expo-router';
@@ -48,9 +48,9 @@ const PersonalInformation = () => {
           description={`${user.name}`} 
           onPress={handleEditNamePress} 
         />
-        <CardOptionsGeneral title="Correo" description={user.email} onPress={() => {}} />
-        <CardOptionsGeneral title="Telefono" description="+57 3211234567" onPress={() => {}} />
-        <CardOptionsGeneral title="Fecha de nacimiento" description="01/01/2000" onPress={() => {}} />
+        <CardOptionsGeneral title="Correo" description={user.email} icon={LockIcon} />
+        <CardOptionsGeneral title="Telefono" description="+57 3211234567"  icon={LockIcon} />
+        <CardOptionsGeneral title="Fecha de nacimiento" description="01/01/2000"  icon={LockIcon} />
       </View>
     </View>
   );

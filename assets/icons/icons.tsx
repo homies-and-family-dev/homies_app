@@ -156,3 +156,9 @@ export const ConfigurationUserProfileIcon = `<svg width="65" height="65" viewBox
 export const ConfigurationEditIcon = `<svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.2838 3.82673C11.5673 3.53743 11.7233 3.15322 11.7233 2.74453C11.7233 2.33583 11.5673 1.95163 11.2838 1.66233L10.0942 0.448492C9.81075 0.159192 9.43425 0 9.03375 0C8.63325 0 8.25675 0.159192 7.974 0.447727L0 8.55962V11.9386H3.30975L11.2838 3.82673ZM9.03375 1.53069L10.224 2.74376L9.0315 3.95607L7.842 2.743L9.03375 1.53069ZM1.5 10.4079V9.19486L6.78 3.82366L7.9695 5.0375L2.69025 10.4079H1.5ZM0 13.4693H12V15H0V13.4693Z" fill="#FFA4DB"/>
 </svg>`;
+
+export const LockIcon = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <path d="M12 2C9.243 2 7 4.243 7 7v5H5v10h14V12h-2V7c0-2.757-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3v5H9V7c0-1.654 1.346-3 3-3zm-1 10h2v4h-2v-4z" fill="#FFA4DB"/>
+</svg>
+`;

@@ -47,10 +47,8 @@ const EditInformation = () => {
       
       const response = await updateUser(updatedData);
       
-      if (response) {
-        console.log('Respuesta de la API:', response);
-        setAlertVisible(true);
-      }
+      console.log('Respuesta de la API:', response);
+      setAlertVisible(true);
     } catch (error) {
       console.error("Error updating user information:", error);
       Alert.alert(

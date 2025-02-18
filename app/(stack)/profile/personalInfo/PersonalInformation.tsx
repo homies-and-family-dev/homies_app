@@ -10,6 +10,10 @@ const PersonalInformation = () => {
   const user = useStore((state) => state.user); 
   const router = useRouter();
 
+  const handleEditNamePress = () => {
+    router.push('/(stack)/profile/personalInfo/EditInformation');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.containerProfile}>
@@ -41,8 +45,8 @@ const PersonalInformation = () => {
         </View>
         <CardOptionsGeneral 
           title="Nombres y apellidos" 
-          description={user.name} 
-          onPress={() => {}} 
+          description={`${user.name}`} 
+          onPress={handleEditNamePress} 
         />
         <CardOptionsGeneral title="Correo" description={user.email} onPress={() => {}} />
         <CardOptionsGeneral title="Telefono" description="+57 3211234567" onPress={() => {}} />

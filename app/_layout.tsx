@@ -89,6 +89,10 @@ export default function RootLayout() {
           name="(stack)/profile/legal/PrivacyPolicies"
           options={{ headerShown: true }}
         />
+        <Stack.Screen
+          name="(stack)/profile/personalInfo/EditInformation"
+          options={{ headerShown: true }}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />

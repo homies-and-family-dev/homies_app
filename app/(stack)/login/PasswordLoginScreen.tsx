@@ -188,8 +188,7 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#ccc",
     borderRadius: 10,
-    paddingVertical: Platform.OS === "ios" ? 15 : 5,
-    paddingHorizontal: 15,
+    padding: 15,
     width: "100%",
     backgroundColor: "#FFF",
     ...Platform.select({

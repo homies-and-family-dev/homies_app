@@ -7,56 +7,64 @@ import {
   StyleSheet,
   Alert,
   Platform,
+  Modal,
 } from "react-native";
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from 'expo-router';
+import useUserStore from "../../../../store/userStore";
 
-type RootStackParamList = {
-  RegisterFormScreen: { email: string };
-  RegisterPasswordScreen: { firstName: string; lastName: string; birthDate: string; email: string };
-  LoginScreen: undefined;
-};
-
-const RegisterForm = () => {
-  const router = useRouter();
-  const params = useLocalSearchParams();
-  const email = params.email as string;
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [birthDate, setBirthDate] = useState<string>("");
-  const [isValid, setIsValid] = useState<boolean>(false);
+const EditInformation = () => {
+  const navigation = useNavigation();
+  const user = useUserStore((state) => state.user);
+  const updateUser = useUserStore((state) => state.updateUser);
+  const [name, setName] = useState(user.name.split(' ')[0] || "");
+  const [lastName, setLastName] = useState(user.name.split(' ')[1] || "");
+  const [isValid, setIsValid] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
 
   useEffect(() => {
     validateInputs();
-  }, [firstName, lastName, birthDate]);
+  }, [name, lastName]);
 
   const validateInputs = () => {
-    if (!firstName.trim() || !lastName.trim() || !birthDate.trim()) {
+    if (!name.trim() || !lastName.trim()) {
       setIsValid(false);
     } else {
       setIsValid(true);
     }
   };
 
-  const handleRegister = () => {
+  const handleSave = async () => {
     if (!isValid) {
       Alert.alert("Error de validación", "Por favor completa todos los campos correctamente.");
       return;
     }
 
-    router.push({
-      pathname: "/(stack)/register/RegisterPasswordScreen",
-      params: { firstName, lastName, birthDate, email }
-    });
+    try {
+      const updatedData = {
+        name: `${name} ${lastName}`.trim()
+      };
+      
+      const response = await updateUser(updatedData);
+      
+      if (response) {
+        console.log('Respuesta de la API:', response);
+        setAlertVisible(true);
+      }
+    } catch (error) {
+      console.error("Error updating user information:", error);
+      Alert.alert(
+        "Error", 
+        "Hubo un problema al actualizar tu información. Por favor, intenta de nuevo."
+      );
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
         <View style={styles.containerHeader}>
-          <Text style={styles.text}>Registrate</Text>
-          <Text style={styles.emailText}>Correo: <Text style={styles.emailHighlight}>{email}</Text></Text>
+          <Text style={styles.text}>Editar Información</Text>
         </View>
         <View style={styles.containerInput}>
           <Text style={styles.label}>Nombres</Text>
@@ -71,8 +79,8 @@ const RegisterForm = () => {
               placeholder="Ingresa tu nombre"
               placeholderTextColor="#969696"
               style={styles.textInput}
-              value={firstName}
-              onChangeText={setFirstName}
+              value={name}
+              onChangeText={setName}
             />
           </View>
         </View>
@@ -94,43 +102,36 @@ const RegisterForm = () => {
             />
           </View>
         </View>
-        <View style={styles.containerInput}>
-          <Text style={styles.label}>Fecha de nacimiento</Text>
-          <View style={styles.inputWrapper}>
-            <Ionicons
-              name="calendar-outline"
-              size={24}
-              color="#969696"
-              style={styles.icon}
-            />
-            <TextInput
-              placeholder="DD/MM/YYYY"
-              placeholderTextColor="#969696"
-              style={styles.textInput}
-              value={birthDate}
-              onChangeText={setBirthDate}
-            />
-          </View>
-        </View>
         <View style={styles.containerButton}>
           <TouchableOpacity
             style={[
               styles.button,
               { backgroundColor: isValid ? "#FFA4DB" : "#FFD1E8" },
             ]}
-            onPress={handleRegister}
+            onPress={handleSave}
             disabled={!isValid}
           >
-            <Text style={styles.buttonText}>Continuar</Text>
+            <Text style={styles.buttonText}>Guardar</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.containerFooter}>
-        <Text>¿Ya tienes cuenta?</Text>
-        <Link href="/(stack)/login/EmailLoginScreen" asChild>
-          <Text style={styles.registerText}>Inicia sesión</Text>
-        </Link>
-      </View>
+      <Modal visible={alertVisible} transparent={true} animationType="slide">
+        <View style={styles.overlay}>
+          <View style={styles.alertContainer}>
+            <Ionicons name="checkmark-circle-outline" size={64} color="#FFA4DB" />
+            <Text style={styles.message}>Tu información ha sido actualizada correctamente.</Text>
+            <TouchableOpacity
+              style={styles.alertButton}
+              onPress={() => {
+                setAlertVisible(false);
+                navigation.goBack();
+              }}
+            >
+              <Text style={styles.alertButtonText}>Aceptar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -153,14 +154,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#333",
-  },
-  emailText: {
-    fontSize: 16,
-    color: "#333",
-    marginTop: 20,
-  },
-  emailHighlight: {
-    color: "#969696",
   },
   formContainer: {
     width: "100%",
@@ -186,17 +179,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     ...Platform.select({
       ios: {
-        shadowColor: "#969696",
+        shadowColor: "#000",
         shadowOffset: {
           width: 0,
           height: 2,
         },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
       },
       android: {
         elevation: 3,
-        shadowColor: "#969696",
       },
     }),
   },
@@ -228,11 +220,11 @@ const styles = StyleSheet.create({
           width: 0,
           height: 2,
         },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
       },
       android: {
-        elevation: 2,
+        elevation: 4,
       },
     }),
   },
@@ -241,17 +233,62 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  containerFooter: {
-    flexDirection: "row",
-    marginTop: 20,
+  overlay: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    marginBottom: 30,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
-  registerText: {
-    color: "#FFA4DB",
-    marginLeft: 5,
+  alertContainer: {
+    width: "80%",
+    paddingHorizontal: 30,
+    paddingVertical: 50,
+    gap: 15,
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  message: {
+    fontSize: 18,
+    color: "#333",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  alertButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 15,
+    borderRadius: 30,
+    width: "100%",
+    backgroundColor: "#FFA4DB",
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
+  },
+  alertButtonText: {
+    color: "#FFF",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
 
-export default RegisterForm;
+export default EditInformation;

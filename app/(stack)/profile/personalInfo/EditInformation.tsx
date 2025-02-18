@@ -11,12 +11,12 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import useUserStore from "../../../../store/userStore";
+import useAuthStore from "../../../../store/authStore";
 
 const EditInformation = () => {
   const navigation = useNavigation();
-  const user = useUserStore((state) => state.user);
-  const updateUser = useUserStore((state) => state.updateUser);
+  const user = useAuthStore((state) => state.user);
+  const updateUser = useAuthStore((state) => state.updateUser);
   const [name, setName] = useState(user.name.split(' ')[0] || "");
   const [lastName, setLastName] = useState(user.name.split(' ')[1] || "");
   const [isValid, setIsValid] = useState(false);

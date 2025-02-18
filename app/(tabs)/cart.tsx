@@ -13,7 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useCartStore from "../../store/cartStore";
 import useSedeStore from "../../store/sedeStore";
 import SedeComponent from "../../components/screens/SedeComponent";
-import SedeModal from "../../components/screens/SedeModal";
+import ModalTemporal from "../../components/ui/ModalTemporal";
 import {
   deleteIcon,
   minusIcon,
@@ -21,7 +21,8 @@ import {
   emptyCartIcon,
   clearIcon,
 } from "../../assets/icons/icons";
-import { formatCurrency } from "../../assets/utils/formatPrice"; // Import the function
+import { formatCurrency } from "../../assets/utils/formatPrice";
+import { useRouter } from "expo-router";
 
 const ShoppingCart: React.FC = () => {
   const {
@@ -33,9 +34,12 @@ const ShoppingCart: React.FC = () => {
     deleteAllProducts,
   } = useCartStore();
 
+  const router = useRouter();
+
   const { setSelectedSede, selectedSede, fetchPrices, productPrices } = useSedeStore();
 
   const [sedeModalVisible, setSedeModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false); 
 
   useEffect(() => {
     fetchCartProducts();
@@ -57,19 +61,14 @@ const ShoppingCart: React.FC = () => {
   const handleRequestOrder = async () => {
     try {
       await AsyncStorage.setItem("products", JSON.stringify(cartProducts));
-      // Navegar a la pantalla de detalles del pedido
+      setModalVisible(true); // Show the modal
     } catch (error) {
       console.error("Error al enviar el pedido:", error);
     }
   };
 
   const handleAddProduct = () => {
-    // Navegar a la pantalla de inicio
-  };
-
-  const handleSelectSede = (sede: any) => {
-    setSelectedSede(sede);
-    fetchCartProducts();
+    router.push('/(tabs)');
   };
 
   const clearCart = () => {
@@ -173,6 +172,7 @@ const ShoppingCart: React.FC = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <ModalTemporal visible={modalVisible} onClose={() => setModalVisible(false)} />
     </View>
   );
 };

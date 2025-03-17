@@ -26,17 +26,22 @@ const Navbar: React.FC<NavbarProps> = ({ setSedeModalVisible }) => {
 
   return (
     <View style={styles.navbar}>
+{/*
       <Pressable style={styles.iconButton} onPress={handleShopClick}>
         <SvgXml xml={SearchIcon} width="20" height="20" fill="#FFA4DB" />
       </Pressable>
+      */}
+      
       <Pressable style={styles.selectContainer} onPress={() => setSedeModalVisible(true)}>
         <SvgXml xml={locationIcon} width="20" height="20" fill="#FFA4DB" />
         <Text style={styles.selectText}>{selectedSede?.name || "Seleccione sede"}</Text>
         <SvgXml xml={DownArrowIcon} width="28" height="28" fill="#FFA4DB" />
       </Pressable>
+{/* 
       <Pressable style={styles.iconButton} onPress={handleShopClick}>
         <SvgXml xml={NotificationIcon} width="20" height="20" fill="#FFA4DB" />
       </Pressable>
+      */}
     </View>
   );
 };
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingHorizontal: 20,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center", // Center the content horizontally
     alignItems: "center",
   },
   selectContainer: {

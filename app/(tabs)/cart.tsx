@@ -23,6 +23,7 @@ import {
 } from "../../assets/icons/icons";
 import { formatCurrency } from "../../assets/utils/formatPrice";
 import { useRouter } from "expo-router";
+import SedeModal from "@/components/screens/SedeModal";
 
 const ShoppingCart: React.FC = () => {
   const {
@@ -38,8 +39,8 @@ const ShoppingCart: React.FC = () => {
 
   const { setSelectedSede, selectedSede, fetchPrices, productPrices } = useSedeStore();
 
-  const [sedeModalVisible, setSedeModalVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false); 
+  const [isSedeModalVisible, setSedeModalVisible] = useState(false); // Add state for SedeModal visibility
 
   useEffect(() => {
     fetchCartProducts();
@@ -79,7 +80,7 @@ const ShoppingCart: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Tu pedido</Text>
-        <SedeComponent setSedeModalVisible={setSedeModalVisible} />
+        <SedeComponent setSedeModalVisible={setSedeModalVisible} /> {/* Use setSedeModalVisible */}
       </View>
       {cartProducts.length > 0 ? (
         <>
@@ -173,6 +174,10 @@ const ShoppingCart: React.FC = () => {
         </TouchableOpacity>
       </View>
       <ModalTemporal visible={modalVisible} onClose={() => setModalVisible(false)} />
+      <SedeModal
+        visible={isSedeModalVisible}
+        onClose={() => setSedeModalVisible(false)}
+      /> {/* Add SedeModal component */}
     </View>
   );
 };

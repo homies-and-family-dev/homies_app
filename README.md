@@ -1,117 +1,81 @@
-# Mi Aplicación Expo 📱
+# Homies App
 
-Esta es una aplicación móvil desarrollada con [Expo](https://expo.dev), creada utilizando [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Homies App is a mobile application built with Expo and React Native.
 
-## 📋 Tabla de Contenidos
+## Getting Started
 
-- [Características](#características)
-- [Requisitos Previos](#requisitos-previos)
-- [Instalación](#instalación)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Uso](#uso)
-- [Rutas de la Aplicación](#rutas-de-la-aplicación)
-- [Tecnologías Utilizadas](#tecnologías-utilizadas)
-- [Contribución](#contribución)
+### Prerequisites
 
-## ✨ Características
-
-- Sistema de autenticación completo
-- Gestión de perfil de usuario
-- Información personal configurable
-- Opciones de seguridad y login
-- Sección legal (Términos y condiciones, Políticas de privacidad)
-- Navegación mediante pestañas y stack
-- Interfaz de usuario intuitiva
-
-## 🔧 Requisitos Previos
-
-- Node.js (versión 14 o superior)
-- npm o yarn
+- Node.js
 - Expo CLI
-- iOS Simulator o Android Emulator (opcional)
 
-## 🚀 Instalación
+### Installation
 
-1. Clona el repositorio:
-   ```bash
-   git clone [URL-del-repositorio]
-   ```
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/homies_app.git
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd homies_app
+    ```
+3. Install dependencies:
+    ```sh
+    npm install
+    ```
 
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
+### Running the App
 
-3. Inicia la aplicación:
-   ```bash
-   npx expo start
-   ```
-
-## 📁 Estructura del Proyecto
-
-```
-├── app/
-│   ├── (stack)/
-│   │   ├── login/
-│   │   └── profile/
-│   ├── (tabs)/
-│   └── _layout.tsx
-├── components/
-│   └── profile/
-├── store/
-│   └── authStore.ts
-└── ...
+To start the app, run:
+```sh
+npm start
 ```
 
-## 💻 Uso
+To run on a specific platform:
+```sh
+npm run android
+npm run ios
+npm run web
+```
 
-La aplicación se puede ejecutar en:
-- Simulador iOS
-- Emulador Android
-- Dispositivo físico usando [Expo Go](https://expo.dev/go)
-- Navegador web (modo desarrollo)
+### Testing
 
-Para iniciar en cada plataforma:
-- iOS: Presiona `i` en la terminal
-- Android: Presiona `a` en la terminal
-- Web: Presiona `w` en la terminal
+To run tests, use:
+```sh
+npm test
+```
 
-## 🗺️ Rutas de la Aplicación
+### Linting
 
-- `/login`: Pantalla de inicio de sesión
-- `/profile`: Perfil principal del usuario
-  - `/profile/personalInfo`: Información personal
-  - `/profile/securityLogin`: Configuración de seguridad
-  - `/profile/legal/terms`: Términos y condiciones
-  - `/profile/legal/privacy`: Políticas de privacidad
+To lint the code, use:
+```sh
+npm run lint
+```
 
-## 🛠️ Tecnologías Utilizadas
+## Versioning
 
-- [Expo](https://expo.dev)
-- [React Native](https://reactnative.dev)
-- [TypeScript](https://www.typescriptlang.org)
-- [Expo Router](https://docs.expo.dev/router/introduction)
+For each new build, make sure to increment the version fields in both `app.json` and `package.json`.
 
-## 🤝 Contribución
+- In `app.json`:
+    ```json
+    {
+      "expo": {
+        // ...existing code...
+        "version": "1.0.6",
+        // ...existing code...
+      }
+    }
+    ```
 
-1. Haz un Fork del proyecto
-2. Crea una rama para tu función (`git checkout -b feature/AmazingFeature`)
-3. Realiza tus cambios
-4. Commit a tus cambios (`git commit -m 'Add some AmazingFeature'`)
-5. Push a la rama (`git push origin feature/AmazingFeature`)
-6. Abre un Pull Request
+- In `package.json`:
+    ```json
+    {
+      // ...existing code...
+      "version": "1.0.6",
+      // ...existing code...
+    }
+    ```
 
-## 📄 Licencia
+## License
 
-Este proyecto está bajo la Licencia [MIT](LICENSE)
-
-## 🤝 Soporte
-
-Si tienes alguna pregunta o problema:
-- Revisa la [documentación de Expo](https://docs.expo.dev)
-- Únete a la [comunidad de Discord](https://chat.expo.dev)
-- Abre un issue en el repositorio
-
----
-
-Desarrollado con ❤️ usando Expo
+This project is licensed under the MIT License.

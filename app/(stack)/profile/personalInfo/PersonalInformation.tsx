@@ -1,17 +1,21 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { SvgXml } from "react-native-svg";
-import { ConfigurationUserProfileIcon, ConfigurationEditIcon, LockIcon } from "../../../../assets/icons/icons"; // Import LockIcon
+import {
+  ConfigurationUserProfileIcon,
+  ConfigurationEditIcon,
+  LockIcon,
+} from "../../../../assets/icons/icons"; // Import LockIcon
 import CardOptionsGeneral from "../../../../components/profile/CardOptionsGeneral";
-import useStore from "../../../../store/authStore"; 
-import { useRouter } from 'expo-router';
+import useStore from "../../../../store/authStore";
+import { useRouter } from "expo-router";
 
 const PersonalInformation = () => {
-  const user = useStore((state) => state.user); 
+  const user = useStore((state) => state.user);
   const router = useRouter();
 
   const handleEditNamePress = () => {
-    router.push('/(stack)/profile/personalInfo/EditInformation');
+    router.push("/(stack)/profile/personalInfo/EditInformation");
   };
 
   return (
@@ -28,29 +32,19 @@ const PersonalInformation = () => {
               />
             </View>
             <View style={styles.containerUserData}>
-              <Text style={styles.textWelcome}>Foto de perfil</Text>
+              <Text style={styles.textWelcome}>{user.name}</Text>
+              <Text style={styles.textEmail}>{user.email}</Text>
             </View>
-          </View>
-          <View style={styles.containerNotifications}>
-            <SvgXml
-              xml={ConfigurationEditIcon}
-              width={20}
-              height={20}
-              fill={"#FFA4DB"}
-            />
           </View>
         </View>
         <View style={styles.containerTitle}>
           <Text style={styles.textTitle}>Información Personal</Text>
         </View>
-        <CardOptionsGeneral 
-          title="Nombres y apellidos" 
-          description={`${user.name}`} 
-          onPress={handleEditNamePress} 
+        <CardOptionsGeneral
+          title="Nombres y apellidos"
+          description={`${user.name}`}
+          onPress={handleEditNamePress}
         />
-        <CardOptionsGeneral title="Correo" description={user.email} icon={LockIcon} />
-        <CardOptionsGeneral title="Telefono" description="+57 3211234567"  icon={LockIcon} />
-        <CardOptionsGeneral title="Fecha de nacimiento" description="01/01/2000"  icon={LockIcon} />
       </View>
     </View>
   );
@@ -110,6 +104,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#40383C",
     fontWeight: "700",
+  },
+  emailContainer: {
+    marginTop: 20,
+  },
+  emailTitle: {
+    fontSize: 18,
+    color: "#333",
+    fontWeight: "500",
+  },
+  emailDescription: {
+    fontSize: 16,
+    color: "#333",
+  },
+  textEmail: {
+    fontSize: 16,
+    color: "#666",
   },
 });
 

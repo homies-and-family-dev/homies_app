@@ -31,6 +31,7 @@ const ProfileScreen = () => {
                 <Text style={styles.textUser}>{user.name}</Text>
               </View>
             </View>
+            {/* 
             <View style={styles.containerNotifications}>
               <SvgXml
                 xml={NotificationIcon}
@@ -39,6 +40,7 @@ const ProfileScreen = () => {
                 fill={"#FFA4DB"}
               />
             </View>
+            */}
           </View>
           <View style={styles.containerConfig}>
             <View style={styles.containerConfigTitle}>
@@ -55,11 +57,11 @@ const ProfileScreen = () => {
                 iconName="ConfigurationShopIcon"
                 route="/profile/orders/Orders"
               />
-              {/*<CardOptionsProfile
+              <CardOptionsProfile
                 title="Inicio de sesion y seguridad"
                 iconName="ConfigurationSecurityIcon"
                 route="/profile/securityLogin/SecurityLogin"
-              />*/}
+              />
             </View>
           </View>
           <View style={styles.containerLegal}>
